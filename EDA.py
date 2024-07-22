@@ -31,6 +31,18 @@ df['Description'] = df['Description'].fillna('')
 # Remove any duplicate rows to ensure our dataset is clean
 df = df.drop_duplicates()
 
+# Convert negative quantities to positive values
+df['Quantity'] = df['Quantity'].abs()
+
+
+unit_price_zero_count = df[df['UnitPrice'] <= 0].shape[0]
+print(f"Number of rows with Unit Price equal to 0: {unit_price_zero_count}")
+
+# Drop rows where UnitPrice is equal to 0
+df = df[df['UnitPrice'] > 0]
+
+
+
 
 
 # Display basic statistics of the dataset for a quick overview
@@ -44,19 +56,25 @@ print(df.describe())
 # Set the plot style to make the visualizations look nice
 sns.set(style="whitegrid")
 
+# Convert quantities to thousands
+df['Quantity'] = df['Quantity'] / 1000
+
 # Plot a histogram of the 'Quantity' column to see its distribution
 plt.figure(figsize=(10, 6))
 sns.histplot(df['Quantity'], bins=50, kde=True)
-plt.title('Distribution of Quantity')
-plt.xlabel('Quantity')
+plt.title('Distribution of Quantity (in Thousands)')
+plt.xlabel('Quantity (in Thousands)')
 plt.ylabel('Frequency')
 plt.show()
 
 # Create a scatter plot to visualize the relationship between 'UnitPrice' and 'Quantity'
+
+
+# Plot the scatter plot of Unit Price vs Quantity
 plt.figure(figsize=(10, 6))
 sns.scatterplot(x='Quantity', y='UnitPrice', data=df)
-plt.title('Unit Price vs Quantity')
-plt.xlabel('Quantity')
+plt.title('Unit Price vs Quantity (in Thousands)')
+plt.xlabel('Quantity (in Thousands)')
 plt.ylabel('Unit Price')
 plt.show()
 
