@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 file_path = "Online Retail.xlsx"
 df = pd.read_excel(file_path, sheet_name="Online Retail")
 
-# Example: Plotting a simple line plot (assuming 'Quantity' and 'UnitPrice' columns exist)
+#Plotting a simple line plot
 plt.plot(df['Quantity'], df['UnitPrice'])
 plt.xlabel('Quantity')
 plt.ylabel('Unit Price')
@@ -34,7 +34,7 @@ df = df.drop_duplicates()
 # Convert negative quantities to positive values
 df['Quantity'] = df['Quantity'].abs()
 
-
+#Check and remove any item with price <=0
 unit_price_zero_count = df[df['UnitPrice'] <= 0].shape[0]
 print(f"Number of rows with Unit Price equal to 0: {unit_price_zero_count}")
 
@@ -46,9 +46,6 @@ df = df[df['UnitPrice'] > 0]
 
 
 # Display basic statistics of the dataset for a quick overview
-pd.set_option('display.width', 1000)
-pd.set_option('display.max_columns', None)
-
 print("\nBasic statistics of the dataset:")
 print(df.describe())
 
@@ -88,7 +85,7 @@ plt.ylabel('Total Quantity Sold')
 plt.xticks(rotation=45)
 plt.show()
 
-# Task 5: Analyze Sales Trends Over Time
+# Analyze Sales Trends Over Time
 # Convert the InvoiceDate column to datetime format for easier manipulation
 df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
 
@@ -146,5 +143,4 @@ print("- The dataset contains transactions from various countries, with the UK b
 print("- The majority of transactions involve small quantities, with a few transactions having very high quantities, indicating potential outliers.")
 print("- The most sold products include various decorative and household items.")
 print("- Sales peak during certain months and days of the week, with higher sales observed during weekdays.")
-print("- Data cleaning steps included handling missing values and removing duplicates, ensuring the dataset's quality for analysis.")
 
